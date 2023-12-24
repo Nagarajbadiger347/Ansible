@@ -1,0 +1,15 @@
+[Unit]
+Description=Node Static Web Application
+After=network.target
+
+
+[Service]
+WorkingDirectory=/opt/application
+ExecStart=/usr/local/bin/http-server
+
+
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

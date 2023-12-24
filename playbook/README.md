@@ -19,9 +19,10 @@ A playbook is a list of one or more plays
  list includes target info, ie where to run the play
  Tasks: 
     Parts of the task
-    * name
-    * module
-    * Arguments
+    name
+    module
+    Arguments
 
 # To run ansible playbook
     ansible-playbook -c local -i localhost, playbook.yaml
+stall

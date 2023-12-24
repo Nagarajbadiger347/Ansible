@@ -1,0 +1,48 @@
+- hosts: all
+  connection: local
+  become: yes
+  tasks:
+  - name: Install node
+    ansible.builtin.apt:
+      name: 
+      - nodejs
+      - npm
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+  - name: install http server
+    community.general.npm:
+      name: http-server
+      global: yes
+  - name: create app directory
+    ansible.builtin.file:
+      path: /opt/application
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+  - name: add web content
+    ansible.builtin.copy:
+      src: index.html
+      dest: /opt/application/index.html
+      owner: root
+      group: root
+      mode: '0644'
+  - name: add service file
+    ansible.builtin.copy:
+      src: application.service
+      dest: /etc/systemd/system/application.service
+      owner: root
+      group: root
+      mode: '0644'
+  - name: start service
+    ansible.builtin.systemd:
+      state: started
+      enabled: yes
+      daemon_reload: yes
+      name: application
+      
+
+  
+
+  
