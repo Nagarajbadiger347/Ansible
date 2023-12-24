@@ -1,0 +1,25 @@
+-hosts: all
+ connection: local
+ become: yes
+ tasks:
+   - name: install apache web server
+     ansible.builtin.apt:
+       name: apache2=2.4.52*
+       state: present
+       update_cache: yes
+       cache_valid_time: 3600
+   - name: ensure apache content directory is exist
+     ansible.builtin.file:
+       path:/var/www/html
+       state: directory
+       owner: root
+       group: root
+       mode: '0755'
+   -name: copey web content
+    ansible.builtin.copy:
+      src: index.html
+      dest: path:/var/www/html/index.html
+      owner: root
+      group: root
+      mode: '0644'
+  

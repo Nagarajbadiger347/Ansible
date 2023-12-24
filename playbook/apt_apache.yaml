@@ -1,0 +1,12 @@
+- hosts: all
+  connection: local
+  become: yes
+  tasks:
+    - name: install apache server
+      ansible.builtin.apt:           
+        name:apache2-2.4.52*
+        state:present
+        update_cache:yes
+        cache_valid_time:3600
+
+#  ansible-playbook -c local -i localhost, apt_apache.yaml
