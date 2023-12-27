@@ -1,0 +1,11 @@
+# examples
+- hosts: webserver
+  become: yes
+  tasks:
+    ...
+
+- hosts: dbserver
+  become: yes
+  tasks:
+    ...
+

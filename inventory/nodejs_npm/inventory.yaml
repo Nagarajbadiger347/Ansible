@@ -1,0 +1,15 @@
+all:
+  children:
+    webservers:
+      hosts:
+        web1:
+          ansible_host: 0.0.0.0
+        web2:
+          ansible_host: 0.0.0.0
+    dbservers:
+      hosts:
+        db1:
+          ansible_host: 0.0.0.0
+        db2:
+          ansible_host: 0.0.0.0
+

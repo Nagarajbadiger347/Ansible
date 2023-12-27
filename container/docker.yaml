@@ -1,0 +1,6 @@
+- name: run postgressql in a container
+  community.docker.docker_container:
+    name: postgres
+    image: postgres:latest
+    state: started
+    

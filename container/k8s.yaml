@@ -1,0 +1,42 @@
+# to create name space
+- name: create namespace
+  kubernetes.core.k8s:
+    name: production
+    api_version: v1
+    kind: Namespace
+    state: present
+
+
+- name: deploy nginx
+  kubernetes.core.k8s:
+    state: present
+    template: nginx.yaml
+    namespace: production
+---
+# nginx.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx container
+        image: nginx:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+---
+

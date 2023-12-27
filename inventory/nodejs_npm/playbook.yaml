@@ -1,0 +1,21 @@
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: install node
+      ansible.builtin.apt:
+        name:
+        - nodejs
+        - npm
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+- hosts: dbservers
+  become: yes
+  tasks:
+    - name: install postgresql
+      ansible.builtin.apt:
+        name: postgresql
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+

@@ -1,0 +1,18 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+cache: yes
+cache_plugin: ansible.builtin.jsonfile
+cache_timeout: 7200
+cache_connection: /tmp/aws_inventory
+cache_prefix: aws_ec2
+filters:
+  tag: 
+    env: aws_learn_ansible
+hostnames:
+  - ip-address
+
+
+# to test this 
+# ansible-inventory -i inventory.yaml --graph
+# ansible-inventory -i inventory.yaml --list

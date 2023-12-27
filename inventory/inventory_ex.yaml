@@ -1,0 +1,52 @@
+all:
+  hosts:
+    host01:
+      ansible_host: 0.0.0.0
+    host02:
+      ansible_host: 0.0.0.0
+      ansible_user: ec2-user
+
+---
+all:
+  children:
+    webservers:
+      hosts:
+        host01:
+          ansible_host: 0.0.0.0
+        host02:
+          ansible_host: 0.0.0.0
+    dbservers:
+      hosts:
+        host01:
+          ansible_host: 0.0.0.0
+        host02:
+          ansible_host: 0.0.0.0
+    loadbalancers:
+      hosts:
+        host01:
+          ansible_host: 0.0.0.0
+        host02:
+          ansible_host: 0.0.0.0
+
+---
+all:
+  hosts:
+    host01:
+      ansible_host: 0.0.0.0
+    host02:
+      ansible_host: 0.0.0.0
+      ansible_user: ec2-user
+  childeren:
+    webservers:
+      hosts:
+        host01:
+          ansible_host: 0.0.0.0
+        host02:
+          ansible_host: 0.0.0.0
+    dbservers:
+      hosts:
+        host01:
+          ansible_host: 0.0.0.0
+        host02:
+          ansible_host: 0.0.0.0
+---
