@@ -1,0 +1,8 @@
+---
+container_name: postgres
+container_image: postgres:14
+container_ports:
+  - "5432:5432"
+container_env:
+  POSTGRES_USER: todo
+  POSTGRES_PASSWORD: todo
