@@ -16,3 +16,31 @@ hostnames:
 # to test this 
 # ansible-inventory -i inventory.yaml --graph
 # ansible-inventory -i inventory.yaml --list
+
+
+
+---
+
+# Dynamic inverntory groups
+
+plugin: amazon.aws.aws_ec2
+region: 
+  - us-east-1
+filters:
+  - tag:
+      env: aws_learn_ansible
+keyed_groups: 
+  - key: 'architecture'  # group based on machine architecture( ex: x86_64, arm)
+    prefix: arch
+  - key: 'instance_type' # group based on instance type(ex:t2.micro)
+    prefix: instance_type
+  - key: tags.type       # group based on tag type(ex:'type' tag)
+    prefix: tag_type 
+hostnames:
+  - ip-adress 
+
+# ansible-inventory -i inventory.yaml --graph
+# ansible-inventory -i inventory.yaml --list
+
+
+
