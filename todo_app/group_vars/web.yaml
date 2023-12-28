@@ -1,0 +1,8 @@
+---
+container_name: todo
+container_image: "registry.gitlab.com/learning-ansible/todo:stable"
+container_ports:
+  - "80:5000"
+container_env:
+  DATABASE_URL: "postgres://todo:todo@<ip of database>/todo"
+  

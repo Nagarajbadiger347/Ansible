@@ -1,0 +1,24 @@
+- hosts: database
+  become: yes
+  tasks:
+    - name: install postgres
+      ansible.builtin.apt:
+        name: postgresql
+        state: started
+        update_cache: yes
+    - name: configure postgresql
+      ansible.builtin.copy:
+        src: postgresql.conf
+        dest: /etc/postgresql/14/main/postgresql.conf
+        owner: postgres
+        group: postgres
+        mode: '0644'
+      notify: restart postgresql
+  handlers:
+    - name: restart postgresql
+      ansible.builtin.systemd:
+        state: restarted
+        name: postgresql
+             
+
+   
