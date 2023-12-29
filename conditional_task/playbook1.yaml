@@ -1,0 +1,23 @@
+- hosts: all
+  tasks: 
+  - name: install postgresql (redhat)
+    ansible.builtin.dnf:
+      name: postgresql-server
+    when: ansible_facts['os-family'] == 'RedHat'
+  - name: install postgresql (DEbian)
+    ansible.builtin.apt:
+      name: postgresql
+    when: ansible_facts['os-family'] == 'Debian'
+
+
+
+---
+- hosts: all
+  tasks: 
+  - name: check if Redhat-style 8+
+    ansible.builtin.debug: msg-"This machine is running version 8 or more"
+  when: 
+  - ansible_facts['os-family'] =='RedHat'
+  - ansible_facts['distribution_major_verion'] | int >= 8
+
+---

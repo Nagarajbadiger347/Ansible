@@ -1,0 +1,3 @@
+---
+data: /var/lib/pgsql/data
+config: /var/lib/pgsql/data

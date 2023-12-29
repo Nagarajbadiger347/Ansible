@@ -1,0 +1,36 @@
+---
+- name: Load unique variable
+  ansible.builtin.include_vars:
+    file: "paths-{{ ansible_facts['os-family'] }}.yaml"
+    name: pqsql_paths
+- name: Install postgresql [RedHat]
+  ansible.builtin.dnf:
+    name: postgresql-server
+  when: ansible_facts['os-family'] == 'RedHat'
+- name: Install postgresql [Debian]
+  ansible.builtin.apt:
+    name: postgresql
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_facts['os-family'] == 'Debian'
+- name: Initialize postgresql
+  ansible.builtin.command:
+    cmd: "/usr/bin/initdb -D {{ pgsql_paths['data'] }}"
+    creates: "{{ pgsql_paths['data'] }}/PG_VERSION"
+  become: true
+  become_user: "postgres"
+  vars:
+    ansible_ssh_pipelining: true
+- name: configure postgresql authentication
+  ansible.builtin.copy:
+    src: pg_hba.conf
+    dest: "{{ pgsql_paths['config'] }}/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: '0644'
+  notify: restart postgresql
+- name: start postgresql
+  ansible.builtin.systemd:
+    state: started
+    enabled: yes
+    name: postgresql
