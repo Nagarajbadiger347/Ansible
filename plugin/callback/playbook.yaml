@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  connection: local
+  tasks:
+    - name: successful tasks
+      ansible.builtin.assert:
+        that: True
+     - name: skipped tasks
+      ansible.builtin.assert:
+        that: true
+      when: false
+     - name: failed task
+      ansible.builtin.assert:
+        that: false
+      
+
+#ANSIBLE_STDOUT_CALLBACK=json_stats ansible-playbook -i inventory.yaml playbook.yaml

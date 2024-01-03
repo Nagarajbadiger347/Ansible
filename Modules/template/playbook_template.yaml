@@ -1,0 +1,30 @@
+---
+- hosts: web
+  become: yes
+  vars: 
+    name: nagaraj
+  tasks:
+    - name: install apache server
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: ensure apache content directory exists
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: copy web content'  
+      ansible.builtin.template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+        
+        
+  
